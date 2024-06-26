@@ -1,0 +1,6 @@
+/old
+/build
+/dist
+*.spec
+Pipfile
+

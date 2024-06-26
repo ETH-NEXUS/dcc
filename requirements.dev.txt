@@ -1,0 +1,3 @@
+pur
+pyinstaller
+-r requirements.txt

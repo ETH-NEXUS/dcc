@@ -1,0 +1,5 @@
+click==8.1.7
+sh==2.0.7
+yachalk==0.1.5
+rich==13.7.1
+python-dotenv==1.0.1
