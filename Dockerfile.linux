@@ -1,0 +1,11 @@
+FROM --platform=linux/amd64 python:3.10-buster
+
+RUN mkdir -p /src
+WORKDIR /src
+
+COPY ./requirements.txt /src/requirements.txt
+
+RUN pip install --upgrade pip
+RUN pip install pyinstaller
+RUN pip install -r /src/requirements.txt
+

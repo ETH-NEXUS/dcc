@@ -1,6 +1,7 @@
 /old
 /build
 /dist
+/releases
 Pipfile
 *.spec
 
