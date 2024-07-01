@@ -109,6 +109,26 @@ def ls(filter: str = None):
 
 @click.command()
 @click.argument("filter", required=False)
+def rm(filter: str = None):
+    for cont in __containers(filter):
+        if cont:
+            M.info(f"Removing container {cont}...")
+            cmd = docker.bake(*__bake_command("rm -f %s" % cont))
+            cmd()
+
+
+@click.command()
+@click.argument("args", nargs=-1)
+def clean(args: tuple):
+    print(E.run(f"docker image prune -f {' '.join(args)}"))
+    print(E.run(f"docker image prune -a -f {' '.join(args)}"))
+    print(E.run(f"docker container prune -f {' '.join(args)}"))
+    print(E.run(f"docker system prune -f {' '.join(args)}"))
+    print(E.run(f"docker builder prune -a -f {' '.join(args)}"))
+
+
+@click.command()
+@click.argument("filter", required=False)
 def po(filter: str = None):
     output = ""
     for cont in __containers(filter):
@@ -127,6 +147,19 @@ def rp(filter: str = None):
             f"{i['Name'].lstrip('/')}#{i['HostConfig']['RestartPolicy']['Name']}\n"
         )
     T.out(__handle_output(output), headers=("Name", "Restart"))
+
+
+@click.command()
+@click.argument("filter", required=False)
+def mt(filter: str = None):
+    for cont in __containers(filter):
+        if cont:
+            list_args = ["inspect", "--format", "{{ json .Mounts }}", cont]
+            vols = json.loads(docker(*list_args))
+            rows = []
+            for vol in vols:
+                rows.append(f"{vol['Type']}#{vol['Source']}#{vol['Destination']}")
+            T.out(rows, headers=("Type", "Source", "Destination"))
 
 
 @click.command()
@@ -149,7 +182,20 @@ def dcc(docker_arguments):
 
 if __name__ == "__main__":
     if len(argv) < 2:
-        M.error("Please specify a command.")
+        M.warn("Please specify a command:")
+        M.info(
+            """
+            - `ls`: lists all containers on the system with their status
+            - `rm`: removes all containers on the system
+            - `lg`: follow log files
+            - `po`: lists the exposed ports of all running containers
+            - `rp`: lists the restart policy of all containers
+            - `mt`: show mounts
+            - `sh`: opens an interactive shell (bash) at a certain container
+            - `clean`: cleans the docker environment
+            - or any docker compose command: https://docs.docker.com/compose/reference/
+            """
+        )
         exit(1)
 
     if argv[1] in globals().keys():

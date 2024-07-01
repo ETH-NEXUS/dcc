@@ -34,10 +34,13 @@ It also reads the `.env` file every time the command is run and, if you are work
 To shorthand often used commands the following shorthands are available:
 
 - `ls`: lists all containers on the system with their status
+- `rm`: removes all containers on the system
 - `lg`: follow log files
 - `po`: lists the exposed ports of all running containers
 - `rp`: lists the restart policy of all containers
+- `mt`: show mounts
 - `sh`: opens an interactive shell (bash) at a certain container
+- `clean`: cleans the docker environment
 
 ## Installation
 
