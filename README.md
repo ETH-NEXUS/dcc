@@ -20,7 +20,7 @@ the following command will be executed:
 docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d
 ```
 
-You can use all `docker compose` command line arguments documented in the [official documentation](https://docs.docker.com/compose/reference/), except the special commands described below.
+You can use all `docker compose` command line arguments documented in the [official documentation](https://docs.docker.com/compose/reference/), except the [special commands](#special-commands) described below.
 
 It also reads the `.env` file every time the command is run and, if you are working in a git repository, it sets some `git` related environment variables such as
 
