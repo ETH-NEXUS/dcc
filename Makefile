@@ -20,7 +20,7 @@ gh:
 
 release: all gh
 	@mkdir -p releases
-	@docker run --rm -it -v .:/src gh sh -c 'tar czf /src/releases/$(REPO)-$(VERSION).tar.gz /src/dist'
+	@docker run --rm -it -v .:/src gh sh -c 'tar czf ./releases/$(REPO)-$(VERSION).tar.gz ./dist'
 	-@docker run --env-file=.env --rm -it -v .:/src gh sh -c 'gh release delete $(VERSION)'
 	-@docker run --env-file=.env --rm -it -v .:/src gh sh -c 'gh api \
 		--method POST \

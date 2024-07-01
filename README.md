@@ -41,5 +41,5 @@ To shorthand often used commands the following shorthands are available:
 ## Installation
 
 ```bash
-curl -Ls https://raw.githubusercontent.com/ETH-NEXUS/dcc/v1.0.0/setup.sh | sh
+curl -Ls https://raw.githubusercontent.com/ETH-NEXUS/dcc/main/setup.sh | sh
 ```
