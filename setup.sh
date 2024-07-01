@@ -10,9 +10,9 @@ tar xzf dcc.tar.gz
 target=${1:-~/.local/bin}
 echo "Installing to ${target}"
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    sudo cp dist/linux/dcc ${target}
+    cp dist/linux/dcc ${target}
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-    sudo cp dist/mac/dcc ${target}
+    cp dist/mac/dcc ${target}
 fi
 
 echo "Cleaning up..."

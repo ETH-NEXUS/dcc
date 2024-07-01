@@ -37,3 +37,9 @@ To shorthand often used commands the following shorthands are available:
 - `po`: lists the exposed ports of all running containers
 - `rp`: lists the restart policy of all containers
 - `sh`: opens an interactive shell (bash) at a certain container
+
+## Installation
+
+```bash
+curl -Ls https://raw.githubusercontent.com/ETH-NEXUS/dcc/v1.0.0/setup.sh | sh
+```
