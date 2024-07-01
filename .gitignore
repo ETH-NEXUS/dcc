@@ -4,4 +4,4 @@
 /releases
 Pipfile
 *.spec
-
+.env

@@ -20,9 +20,9 @@ gh:
 
 release: all gh
 	@mkdir -p releases
-	@docker run --rm -it -v .:/src tar czf /src/releases/$(REPO)-$(VERSION).tar.gz /src/dist
-	-@docker run --rm -it -v .:/src gh sh -c 'gh release delete $(VERSION)'
-	-@docker run --rm -it -v .:/src gh sh -c 'gh api \
+	@docker run --rm -it -v .:/src gh sh -c 'tar czf /src/releases/$(REPO)-$(VERSION).tar.gz /src/dist'
+	-@docker run --env-file=.env --rm -it -v .:/src gh sh -c 'gh release delete $(VERSION)'
+	-@docker run --env-file=.env --rm -it -v .:/src gh sh -c 'gh api \
 		--method POST \
 		-H "Accept: application/vnd.github+json" \
 		-H "X-GitHub-Api-Version: 2022-11-28" \
@@ -34,7 +34,7 @@ release: all gh
 		-F "draft=false" \
 		-F "prerelease=false" \
 		-F "generate_release_notes=false"'
-	@docker run --rm -it -v .:/src gh sh -c 'gh release upload $(VERSION) /src/releases/$(REPO)-$(VERSION).tar.gz'
+	@docker run --env-file=.env --rm -it -v .:/src gh sh -c 'gh release upload $(VERSION) /src/releases/$(REPO)-$(VERSION).tar.gz'
 
 run: 
 	@dist/dcc/dcc

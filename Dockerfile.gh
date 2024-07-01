@@ -1,5 +1,8 @@
 FROM debian:bookworm-slim
 
+RUN mkdir -p /src
+WORKDIR /src
+
 # from: https://github.com/cli/cli/blob/trunk/docs/install_linux.md
 RUN (type -p wget >/dev/null || (apt update && apt-get install wget -y)) \
 && mkdir -p -m 755 /etc/apt/keyrings \
