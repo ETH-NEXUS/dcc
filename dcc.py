@@ -137,6 +137,12 @@ def sh(container: str):
     )
 
 
+@click.command()
+@click.argument("container")
+def lg(container: str):
+    __execute_compose_command(__prepare_compose_command(["logs", "-ft", container]))
+
+
 def dcc(docker_arguments):
     __execute_compose_command(__prepare_compose_command(docker_arguments))
 
