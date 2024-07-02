@@ -29,10 +29,23 @@ def __containers(filter: str = None):
     return __handle_output(cmd()).split("\n")
 
 
+def __networks():
+    cmd = docker.bake(*__bake_command("network ls --format {{.Name}}"))
+    return __handle_output(cmd()).split("\n")
+
+
 def __inspect(filter: str = None):
     inspection = []
     for cont in __containers(filter):
         cmd = docker.bake(*__bake_command("inspect %s" % cont))
+        inspection.append(json.loads(__handle_output(cmd()))[0])
+    return inspection
+
+
+def __inspect_networks():
+    inspection = []
+    for net in __networks():
+        cmd = docker.bake(*__bake_command("network inspect %s" % net))
         inspection.append(json.loads(__handle_output(cmd()))[0])
     return inspection
 
@@ -139,6 +152,19 @@ def po(filter: str = None):
 
 
 @click.command()
+def net():
+    for i in __inspect_networks():
+        if i["IPAM"]["Config"]:
+            M.info(
+                f"{i['Name']}: {', '.join(['sn:' + c['Subnet'] + ' gw:' + c['Gateway'] for c in i['IPAM']['Config']])}"
+            )
+        else:
+            M.info(f"{i['Name']}")
+        for _, c in i["Containers"].items():
+            M.debug(f"   +-- {c['Name']} {c['IPv4Address']}")
+
+
+@click.command()
 @click.argument("filter", required=False)
 def rp(filter: str = None):
     output = ""
@@ -189,6 +215,7 @@ if __name__ == "__main__":
             - `rm`: removes all containers on the system
             - `lg`: follow log files
             - `po`: lists the exposed ports of all running containers
+            - `net`: show the network infrastructure
             - `rp`: lists the restart policy of all containers
             - `mt`: show mounts
             - `sh`: opens an interactive shell (bash) at a certain container

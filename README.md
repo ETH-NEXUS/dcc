@@ -37,6 +37,7 @@ To shorthand often used commands the following shorthands are available:
 - `rm`: removes all containers on the system
 - `lg`: follow log files
 - `po`: lists the exposed ports of all running containers
+- `net`: show the network infrastructure
 - `rp`: lists the restart policy of all containers
 - `mt`: show mounts
 - `sh`: opens an interactive shell (bash) at a certain container
