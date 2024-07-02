@@ -242,7 +242,7 @@ if __name__ == "__main__":
             - `net`: show the network infrastructure
             - `rp`: lists the restart policy of all containers
             - `mt`: show mounts
-            - `mt`: show volumes
+            - `vol`: show volumes
             - `sh`: opens an interactive shell (bash) at a certain container
             - `clean`: cleans the docker environment
             - or any docker compose command: https://docs.docker.com/compose/reference/
