@@ -50,6 +50,19 @@ def __inspect_networks():
     return inspection
 
 
+def __inspect_volumes(filter: str = None):
+    list_args = ["volume", "list", "--format", "{{ .Name }}"]
+    if filter:
+        list_args.append("--filter")
+        list_args.append(f"name={filter}")
+    vols = docker(*list_args).split("\n")[:-1]
+    inspection = []
+    for vol in vols:
+        args = ["volume", "inspect"]
+        inspection.append(json.loads(docker(*args, vol))[0])
+    return inspection
+
+
 def __prepare_compose_command(docker_arguments):
     if not isfile("docker-compose.yml"):
         M.error("There is no docker-compose.yml file in this directory!")
@@ -189,6 +202,17 @@ def mt(filter: str = None):
 
 
 @click.command()
+@click.argument("filter", required=False)
+def vol(filter: str = None):
+    rows = []
+    for i in __inspect_volumes(filter):
+        rows.append(
+            f"{i['Name']}#{i['CreatedAt']}#{i['Mountpoint']}#{i['Labels']['com.docker.compose.project'] if 'Labels' in i and i['Labels'] and 'com.docker.compose.project' in i['Labels'] else 'Unknown'}"
+        )
+    T.out(rows, headers=("Name", "CreatedAt", "Mountpoint", "Project"))
+
+
+@click.command()
 @click.argument("container")
 def sh(container: str):
     __execute_compose_command(
@@ -218,6 +242,7 @@ if __name__ == "__main__":
             - `net`: show the network infrastructure
             - `rp`: lists the restart policy of all containers
             - `mt`: show mounts
+            - `mt`: show volumes
             - `sh`: opens an interactive shell (bash) at a certain container
             - `clean`: cleans the docker environment
             - or any docker compose command: https://docs.docker.com/compose/reference/
