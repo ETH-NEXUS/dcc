@@ -25,7 +25,7 @@ You can use all `docker compose` command line arguments documented in the [offic
 It also reads the `.env` file every time the command is run and, if you are working in a git repository, it sets some `git` related environment variables such as
 
 - `GIT_VERSION=$(git describe --always)`
-- `GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD`)
+- `GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD`
 - `GIT_LASTCOMMITDATE=$(git log -1 --format=%cI)`
 - `GIT_COMMITHASH=$(git rev-parse HEAD)`
 
