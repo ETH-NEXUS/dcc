@@ -7,6 +7,7 @@ from sys import exit
 from os.path import isfile, isdir
 from os import environ, getcwd
 from dotenv import load_dotenv
+from datetime import datetime as dt
 
 docker = sh.Command("docker")
 bash = sh.Command("bash")
@@ -213,6 +214,20 @@ def vol(filter: str = None):
 
 
 @click.command()
+@click.argument("volume")
+def volbkp(volume: str):
+    out_file = "%s_%s.tar.gz" % (volume, dt.strftime(dt.now(), "%Y-%m-%d_%H%M"))
+    cmd = docker.bake(
+        *__bake_command(
+            "run --rm -v %s:/data -v .:/backup busybox tar cvzf /backup/%s -C /data ."
+            % (volume, out_file)
+        )
+    )
+    cmd()
+    M.info(f"Backup stored to file '{out_file}'.")
+
+
+@click.command()
 @click.argument("container")
 def sh(container: str):
     __execute_compose_command(
@@ -243,6 +258,7 @@ if __name__ == "__main__":
             - `rp`: lists the restart policy of all containers
             - `mt`: show mounts
             - `vol`: show volumes
+            - `volbkp`: backup a docker volume to `tar.gz`
             - `sh`: opens an interactive shell (bash) at a certain container
             - `clean`: cleans the docker environment
             - or any docker compose command: https://docs.docker.com/compose/reference/

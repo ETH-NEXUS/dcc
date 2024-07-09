@@ -41,6 +41,7 @@ To shorthand often used commands the following shorthands are available:
 - `rp`: lists the restart policy of all containers
 - `mt`: show mounts
 - `vol`: show volumes
+- `volbkp`: backup a docker volume to `tar.gz`
 - `sh`: opens an interactive shell (bash) at a certain container
 - `clean`: cleans the docker environment
 
