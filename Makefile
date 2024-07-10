@@ -5,10 +5,13 @@ REPO := "dcc"
 all: build_mac build_linux clean
 
 clean:
-	@rm -rf build dist dcc.spec
+	@rm -rf build dcc.spec
+
+clean_all: clean
+	@rm -rf dist
 
 build_mac:
-	@pipenv run pyinstaller --name dcc --onedir dcc.py --distpath ./dist/mac
+	@pipenv run pyinstaller --name dcc_mac --onedir dcc.py --distpath ./dist/mac
 
 #build_mac:
 #	@pipenv run pyinstaller --name dcc --onefile dcc.py --distpath ./dist/mac
@@ -21,7 +24,7 @@ build_linux:
 gh:
 	@docker build . -f Dockerfile.gh -t gh
 
-release: all gh
+release: clean_all all gh
 	@mkdir -p releases
 	@docker run --rm -it -v .:/src gh sh -c 'tar czf ./releases/$(REPO)-$(VERSION).tar.gz ./dist'
 	-@docker run --env-file=.env --rm -it -v .:/src gh sh -c 'gh release delete $(VERSION)'
