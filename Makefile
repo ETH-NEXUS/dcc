@@ -8,7 +8,10 @@ clean:
 	@rm -rf build dcc.spec
 
 build_mac:
-	@pipenv run pyinstaller --name dcc --onefile dcc.py --distpath ./dist/mac
+	@pipenv run pyinstaller --name dcc --onedir dcc.py --distpath ./dist/mac
+
+#build_mac:
+#	@pipenv run pyinstaller --name dcc --onefile dcc.py --distpath ./dist/mac
 
 build_linux:
 	@rm -rf build dist/linux dcc.spec
