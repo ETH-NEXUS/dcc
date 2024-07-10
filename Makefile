@@ -5,7 +5,7 @@ REPO := "dcc"
 all: build_mac build_linux clean
 
 clean:
-	@rm -rf build dcc.spec
+	@rm -rf build dist dcc.spec
 
 build_mac:
 	@pipenv run pyinstaller --name dcc --onedir dcc.py --distpath ./dist/mac
