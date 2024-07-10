@@ -50,3 +50,5 @@ To shorthand often used commands the following shorthands are available:
 ```bash
 curl -Ls https://raw.githubusercontent.com/ETH-NEXUS/dcc/main/setup.sh | sh
 ```
+
+> `dcc` will be installed to `~/.local/bin`. Make sure `~/.local/bin` is in your `PATH`.
