@@ -18,7 +18,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     cp -r dist/mac/dcc_mac ${target}
     rm -f ${target}/dcc
-    ln -sf ${target}/dcc_mac/dcc dcc
+    ln -sf ${target}/dcc_mac/dcc_mac ${target}/dcc
 fi
 
 echo "Cleaning up..."
