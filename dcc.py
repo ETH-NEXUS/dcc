@@ -261,7 +261,7 @@ if __name__ == "__main__":
             - `volbkp`: backup a docker volume to `tar.gz`
             - `sh`: opens an interactive shell (bash) at a certain container
             - `clean`: cleans the docker environment
-            - or any docker compose command: https://docs.docker.com/compose/reference/
+            - `--help` or any docker compose command: https://docs.docker.com/compose/reference/
             """
         )
         exit(1)
