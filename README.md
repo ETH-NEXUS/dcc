@@ -53,3 +53,17 @@ curl -Ls https://raw.githubusercontent.com/ETH-NEXUS/dcc/main/setup.sh | sh
 ```
 
 > `dcc` will be installed to `~/.local/bin`. Make sure `~/.local/bin` is in your `PATH`.
+
+## Troubleshooting
+
+If you encounter the following error...
+
+```bash
+dcc: error while loading shared libraries: libz.so.1: failed to map segment from shared object
+```
+
+...you can solve it using...
+
+```bash
+sudo mount /tmp -o remount,exec
+```
