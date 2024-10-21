@@ -49,7 +49,7 @@ To shorthand often used commands the following shorthands are available:
 ## Installation
 
 ```bash
-curl -Ls https://raw.githubusercontent.com/ETH-NEXUS/dcc/main/setup.sh | sh
+curl -Ls https://raw.githubusercontent.com/ETH-NEXUS/dcc/main/setup.sh | bash
 ```
 
 > `dcc` will be installed to `~/.local/bin`. Make sure `~/.local/bin` is in your `PATH`.
